@@ -1,0 +1,55 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from WebBankServiceService WSDL service -->
+
+  <service name="WebBankService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://demo"/>
+      <parameter name="wsdlServiceElement" value="WebBankServiceService"/>
+      <parameter name="schemaQualified" value="http://demo"/>
+      <parameter name="wsdlServicePort" value="WebBankService"/>
+      <parameter name="className" value="demo.WebBankServiceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="WebBankService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="makePayment" qname="operNS:makePayment" xmlns:operNS="http://demo" soapAction="" >
+        <parameter qname="pns:client_id" xmlns:pns="http://demo" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:cost" xmlns:pns="http://demo" type="tns:double" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:appoitementCurrency" xmlns:pns="http://demo" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="findClient" qname="operNS:findClient" xmlns:operNS="http://demo" returnQName="retNS:findClientReturn" xmlns:retNS="http://demo" returnType="rtns:anyType" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:client_id" xmlns:pns="http://demo" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="convertCurrency" qname="operNS:convertCurrency" xmlns:operNS="http://demo" returnQName="retNS:convertCurrencyReturn" xmlns:retNS="http://demo" returnType="rtns:double" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:cost" xmlns:pns="http://demo" type="tns:double" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:clientCurrency" xmlns:pns="http://demo" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:appoitementCurrency" xmlns:pns="http://demo" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="makePayment findClient convertCurrency"/>
+
+      <typeMapping
+        xmlns:ns="http://demo"
+        qname="ns:>convertCurrency"
+        type="java:demo.ConvertCurrency"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://demo"
+        qname="ns:>convertCurrencyResponse"
+        type="java:demo.ConvertCurrencyResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

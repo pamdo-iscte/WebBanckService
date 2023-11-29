@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://demo" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://demo" xmlns:intf="http://demo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://demo" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="makePayment">
+    <complexType>
+     <sequence>
+      <element name="client_id" type="xsd:int"/>
+      <element name="cost" type="xsd:double"/>
+      <element name="appoitementCurrency" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="makePaymentResponse">
+    <complexType/>
+   </element>
+   <element name="findClient">
+    <complexType>
+     <sequence>
+      <element name="client_id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="findClientResponse">
+    <complexType>
+     <sequence>
+      <element name="findClientReturn" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="convertCurrency">
+    <complexType>
+     <sequence>
+      <element name="cost" type="xsd:double"/>
+      <element name="clientCurrency" type="xsd:string"/>
+      <element name="appoitementCurrency" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="convertCurrencyResponse">
+    <complexType>
+     <sequence>
+      <element name="convertCurrencyReturn" type="xsd:double"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="findClientRequest">
+
+      <wsdl:part element="impl:findClient" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="makePaymentResponse">
+
+      <wsdl:part element="impl:makePaymentResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="findClientResponse">
+
+      <wsdl:part element="impl:findClientResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="makePaymentRequest">
+
+      <wsdl:part element="impl:makePayment" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="convertCurrencyResponse">
+
+      <wsdl:part element="impl:convertCurrencyResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="convertCurrencyRequest">
+
+      <wsdl:part element="impl:convertCurrency" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WebBankService">
+
+      <wsdl:operation name="makePayment">
+
+         <wsdl:input message="impl:makePaymentRequest" name="makePaymentRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:makePaymentResponse" name="makePaymentResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findClient">
+
+         <wsdl:input message="impl:findClientRequest" name="findClientRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:findClientResponse" name="findClientResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="convertCurrency">
+
+         <wsdl:input message="impl:convertCurrencyRequest" name="convertCurrencyRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:convertCurrencyResponse" name="convertCurrencyResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WebBankServiceSoapBinding" type="impl:WebBankService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="makePayment">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="makePaymentRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="makePaymentResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findClient">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findClientRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findClientResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="convertCurrency">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="convertCurrencyRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="convertCurrencyResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WebBankServiceService">
+
+      <wsdl:port binding="impl:WebBankServiceSoapBinding" name="WebBankService">
+
+         <wsdlsoap:address location="http://localhost:8080/WebBankService/services/WebBankService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
